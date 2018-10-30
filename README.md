@@ -1,4 +1,4 @@
-# MAC5853 Desenvolvimentor de Sistemas de Computacao
+# MAC5853 Desenvolvimento de Sistemas de Computacao
 
 ## Overview
 
