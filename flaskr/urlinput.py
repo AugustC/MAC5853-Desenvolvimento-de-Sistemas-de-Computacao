@@ -23,7 +23,7 @@ def get_input():
             # TODO: Insert on Database
 
         if error is None:
-            return redirect(url_for('processing.processing'))
+            return render_template('processing.html')
 
         flash(error)
 
