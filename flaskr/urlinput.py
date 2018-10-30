@@ -30,7 +30,7 @@ def get_input():
             return render_template('processing.html')
         flash(error)
 
-    # sites = sites on database
+    # sites = get sites from database
     sites = None
     if sites is not None:
         # TODO: Get data from database and put on g.sites, g.status, g.callback
