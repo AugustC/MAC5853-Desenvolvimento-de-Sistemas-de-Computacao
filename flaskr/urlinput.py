@@ -19,12 +19,21 @@ def get_input():
         else:
             input_data = request.get_json()
             g.sites = input_data['sites']
+            g.status = {}
+            for site in g.sites:
+                g.status[site] = 'Not processed'
             g.callback = input_data['callback']
             # TODO: Insert on Database
+            # TODO: Start processing URL's
 
         if error is None:
             return render_template('processing.html')
-
         flash(error)
+
+    # sites = sites on database
+    sites = None
+    if sites is not None:
+        # TODO: Get data from database and put on g.sites, g.status, g.callback
+        return render_template('processing.html')
 
     return render_template('input.html')
