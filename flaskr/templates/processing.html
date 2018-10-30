@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block header %}
+<h1>{% block title %} Processing URL's{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<ul>
+    {% for site in g.sites %}
+    <li> {{ site }} </li>
+    {% endfor %}
+</ul>
+{% endblock %}
