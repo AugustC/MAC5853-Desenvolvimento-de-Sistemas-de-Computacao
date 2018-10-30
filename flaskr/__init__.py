@@ -24,7 +24,4 @@ def create_app(test_config=None):
     from . import urlinput
     app.register_blueprint(urlinput.bp)
 
-    from . import urlprocessing
-    app.register_blueprint(urlprocessing.bp)
-
     return app
