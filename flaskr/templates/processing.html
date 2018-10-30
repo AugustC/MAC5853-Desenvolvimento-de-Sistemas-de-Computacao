@@ -4,9 +4,30 @@
 {% endblock %}
 
 {% block content %}
-<ul>
-    {% for site in g.sites %}
-    <li> {{ site }} </li>
-    {% endfor %}
-</ul>
+<div class="w3-main">
+    <div class="w3-container">
+        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+            {% for site in g.sites %}
+            <tr>
+                <td> {{ site }} </td>
+                <td>
+                {% if g.status[site] == "Not processed" %}
+                    <div class="w3-text-red">
+                {% elif g.status[site] == "Processing" %}
+                    <div class="w3-text-blue">
+                {% else %}
+                    <div class="w3-text-green">
+                {% endif %}
+                {{ g.status[site] }}</td>
+                </div>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="w3-container">
+        <table class="w3-table w3-striped w3-centered w3-bordered w3-border w3-hoverable w3-white">
+            <tr><td>{{ g.callback }}</td></tr>
+    </table>
+    </div>
+</div>
 {% endblock %}
