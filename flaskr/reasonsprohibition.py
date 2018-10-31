@@ -1,0 +1,2 @@
+class ReasonsProhibition():
+    pass
