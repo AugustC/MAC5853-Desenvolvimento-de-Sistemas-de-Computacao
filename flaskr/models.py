@@ -224,7 +224,7 @@ class MURLPROCESSMENT(db.Model):
         html = get_html(url.urlpath)
         regex_restriction = RegexRestriction(html)
         image_restriction = ImageRestriction(html)
-        ml_restriction = MLRestricion(html) self.setProhibition(regex_restriction) self.setProhibition(image_restriction)
+        ml_restriction = MLRestricion(html)
         self.setProhibition(regex_restriction)
         self.setProhibition(image_restriction)
         self.setProhibition(ml_restriction)
