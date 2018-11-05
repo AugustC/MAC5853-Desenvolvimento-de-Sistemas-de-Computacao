@@ -1,5 +1,8 @@
 from . import db
 from datetime import datetime
+from .restrictions import RegexRestriction, ImageRestriction, MLRestriction
+import threading
+from .utils import get_html
 
 class MURL(db.Model):
     __tablename__ = 'URL'
@@ -68,6 +71,18 @@ class MSTATUSTYPE(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def setWaiting(self):
+        self.description = 'Not Processed'
+        self.save()
+
+    def setProcessing(self):
+        self.description = 'Processing'
+        self.save()
+
+    def setEnded(self):
+        self.description = 'Processed'
+        self.save()
 
     @staticmethod
     def get_all():
@@ -183,10 +198,12 @@ class MURLPROCESSMENT(db.Model):
     status_id = db.Column(db.Integer,db.ForeignKey('STATUSTYPE.id'))
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self,url_id, status_id, date_created):
+    def __init__(self,url_id, status_id, date_created=datetime.utcnow()):
         self.url_id = url_id
         self.status_id = status_id
         self.date_created = date_created
+        self.thread = threading.Thread(target=self.processRestriction)
+        self.thread.start()
 
     def __repr__(self):
         return f"Url processment created on {self.date_created}"
@@ -198,6 +215,27 @@ class MURLPROCESSMENT(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def processRestriction(self):
+        status = MSTATUSTYPE.query.get(self.status_id)
+        status.setProcessing()
+        url = MURL.query.get(self.url_id)
+        print('Processing', url)
+        html = get_html(url.urlpath)
+        regex_restriction = RegexRestriction(html)
+        image_restriction = ImageRestriction(html)
+        ml_restriction = MLRestricion(html) self.setProhibition(regex_restriction) self.setProhibition(image_restriction)
+        self.setProhibition(regex_restriction)
+        self.setProhibition(image_restriction)
+        self.setProhibition(ml_restriction)
+        status.setEnded()
+
+    def setProhibition(self, restriction):
+        if not restriction.prohibited:
+            pass
+        else:
+        # Create ReasonsProhibition, create URLProhibition
+            pass
 
     @staticmethod
     def get_all():
