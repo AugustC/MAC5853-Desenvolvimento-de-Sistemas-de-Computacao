@@ -46,6 +46,12 @@ class MPROHIBITIONTYPE(db.Model):
     def __repr__(self):
         return f"Prohibition Type is {self.description}"
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'description': self.description,
+        }
+
     def save(self):
         db.session.add(self)
         db.session.commit()
@@ -69,6 +75,12 @@ class MSTATUSTYPE(db.Model):
 
     def __repr__(self):
         return f"Status Type is {self.description}"
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'description': self.description,
+        }
 
     def save(self):
         db.session.add(self)
