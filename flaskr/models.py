@@ -21,6 +21,10 @@ class MURL(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @staticmethod
+    def get_all():
+        return MURL.query.all()
+
 class MPROHIBITIONTYPE(db.Model):
     __tablename__ = 'PROHIBITIONTYPE'
 
@@ -40,6 +44,10 @@ class MPROHIBITIONTYPE(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    @staticmethod
+    def get_all():
+        return MPROHIBITIONTYPE.query.all()
 
 class MSTATUSTYPE(db.Model):
     __tablename__ = 'STATUSTYPE'
@@ -61,6 +69,10 @@ class MSTATUSTYPE(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @staticmethod
+    def get_all():
+        return MSTATUSTYPE.query.all()
+
 class MRESTRICTION(db.Model):
     __tablename__ = 'RESTRICTION'
 
@@ -80,6 +92,10 @@ class MRESTRICTION(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    @staticmethod
+    def get_all():
+        return MRESTRICTION.query.all()
 
 class MREGEXRESTRICTION(db.Model):
     __tablename__ = 'REGEXRESTRICTION'
@@ -103,6 +119,10 @@ class MREGEXRESTRICTION(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @staticmethod
+    def get_all():
+        return MREGEXRESTRICTION.query.all()
+
 class MMACHINELEARNINGR(db.Model):
     __tablename__ = 'MACHINELEARNINGR'
 
@@ -125,6 +145,10 @@ class MMACHINELEARNINGR(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @staticmethod
+    def get_all():
+        return MMACHINELEARNINGR.query.all()
+
 class MIMAGERESTRICTION(db.Model):
     __tablename__ = 'IMAGERESTRICTION'
 
@@ -146,6 +170,10 @@ class MIMAGERESTRICTION(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    @staticmethod
+    def get_all():
+        return MIMAGERESTRICTION.query.all()
 
 class MURLPROCESSMENT(db.Model):
     __tablename__ = 'URLPROCESSMENT'
@@ -171,6 +199,9 @@ class MURLPROCESSMENT(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @staticmethod
+    def get_all():
+        return MURLPROCESSMENT.query.all()
 
 
 class MURLPROHIBITION(db.Model):
@@ -197,6 +228,9 @@ class MURLPROHIBITION(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @staticmethod
+    def get_all():
+        return MURLPROHIBITION.query.all()
 
 class MREASONSPROHIBITION(db.Model):
     __tablename__ = 'REASONSPROHIBITION'
@@ -223,3 +257,7 @@ class MREASONSPROHIBITION(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    @staticmethod
+    def get_all():
+        return MREASONSPROHIBITION.query.all()
