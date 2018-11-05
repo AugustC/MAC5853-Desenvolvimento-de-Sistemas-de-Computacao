@@ -12,17 +12,16 @@ class Restriction():
 class RegexRestriction(Restriction):
 
     def __init__(self, html):
-        super().__init__()
+        super().__init__(html)
         self.description = 'Regex restriction'
 
     def try_restriction(self, html):
         raise NotImplementedError
 
-
 class ImageRestriction(Restriction):
 
     def __init__(self, html):
-        super().__init__()
+        super().__init__(html)
         self.description = 'Image restriction'
 
     def try_restriction(self, html):
@@ -32,7 +31,7 @@ class ImageRestriction(Restriction):
 class MLRestriction(Restriction):
 
     def __init__(self, html):
-        super().__init__()
+        super().__init__(html)
         self.description = 'Machine Learning restriction'
 
     def try_restriction(self, html):
