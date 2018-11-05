@@ -145,7 +145,7 @@ class MMACHINELEARNINGR(db.Model):
     restriction_id = db.Column(db.Integer,db.ForeignKey('RESTRICTION.id'))
     model_path = db.Column(db.String(255))
 
-    def __init__(self,restriction_id, regex_rule):
+    def __init__(self,restriction_id, model_path):
         self.restriction_id = restriction_id
         self.model_path = model_path
 

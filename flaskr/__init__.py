@@ -3,8 +3,10 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_restful import Api
 
 db = SQLAlchemy()
+api = Api()
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -24,6 +26,8 @@ def create_app(test_config=None):
     except OSError:
         pass
     db.init_app(app)
+    from . import resources
+    api.init_app(app)
     from . import urlinput
     app.register_blueprint(urlinput.bp)
     migrate = Migrate(app, db)
