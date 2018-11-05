@@ -37,3 +37,9 @@ flask run
 Then, send a POST HTTP request to http://127.0.0.1:5000/ with JSON data containing the
 sites to be processed and the callback URL.
 
+
+### Project Description
+This is a project to identify that sites are good according to certain policies.
+
+UPDATE 05/11: All the data model classes were created. And a CRUD resource and unit tests for it were implemented. We will replicate this for the remaining
+classes and then we will finish creating the machine learning models and other rules.
