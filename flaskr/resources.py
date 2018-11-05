@@ -4,22 +4,19 @@ from . import api
 from .models import MURL
 
 class URLResource(Resource):
-    def get(self,request):
-        urls = MURL.get_all()
-        results = []
 
-        for url in urls:
-            obj = {
-                'id': url.id,
-                'urlpath': url.urlpath
-            }
-            results.append(obj)
-        response = jsonify(results)
-        response.status_code = 200
-        return response
+    def get(self):
+        urlpath = str(request.json.get('urlpath'))
+        url = MURL.query.filter_by(urlpath=urlpath).first()
+        if url:
+            response = jsonify(url.serialize())
+            response.status_code = 202
+            return response
+        else:
+            return {'urlpath':'not found'}, 404
 
     def post(self):
-        urlpath = str(request.data.get('urlpath', ''))
+        urlpath = str(request.json.get('urlpath'))
         if urlpath:
             url = MURL(urlpath=urlpath)
             url.save()
@@ -29,6 +26,17 @@ class URLResource(Resource):
             })
             response.status_code = 201
             return response
+
+    def delete(self):
+        urlpath = str(request.json.get('urlpath'))
+        url = MURL.query.filter_by(urlpath=urlpath).first()
+        MURL.delete(url)
+        response = jsonify({
+            'note': 'Delete successful'
+        })
+        response.status_code = 200
+        return response
+
 
 
 

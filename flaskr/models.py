@@ -16,6 +16,12 @@ class MURL(db.Model):
     def __repr__(self):
         return f"URL is {self.urlpath}"
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'urlpath': self.urlpath,
+        }
+
     def save(self):
         db.session.add(self)
         db.session.commit()
