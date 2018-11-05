@@ -4,8 +4,10 @@
 
 ## Requirements
 * Flask
+* flask_sqlalchemy
+* flask_migrate
+* flask_restful
 * MySQL
-* MySQL Alchemy
 
 ## Database Setup
 Logon to mysql -u root and use the next commands:
