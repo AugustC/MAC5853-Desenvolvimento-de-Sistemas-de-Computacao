@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 
@@ -10,7 +11,9 @@ def create_app(test_config=None):
     app.config.from_mapping(
             SECRET_KEY='dev',
             DATABASE=os.path.join(app.instance_path, 'flaskr.mysql'),
+            SQLALCHEMY_DATABASE_URI='mysql://db_admin:dbadmin@localhost/dsvdb'
             )
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
     else:
@@ -20,11 +23,9 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-    from . import db
     db.init_app(app)
-
     from . import urlinput
     app.register_blueprint(urlinput.bp)
-
+    migrate = Migrate(app, db)
+    from . import models
     return app

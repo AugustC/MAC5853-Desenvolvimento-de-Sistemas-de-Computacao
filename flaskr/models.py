@@ -1,4 +1,5 @@
-from app import db
+from . import db
+from datetime import datetime
 
 class MURL(db.Model):
     __tablename__ = 'URL'
@@ -95,8 +96,8 @@ class MURLPROCESSMENT(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     url_id = db.Column(db.Integer,db.ForeignKey('URL.id'))
-    status_id = db.Column(db.Integer,db.ForeignKey('STATUS_TYPE.id'))
-    date_created = db.db.Column(db.DateTime, default=datetime.utcnow)
+    status_id = db.Column(db.Integer,db.ForeignKey('STATUSTYPE.id'))
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self,url_id, status_id, date_created):
         self.url_id = url_id
@@ -113,8 +114,8 @@ class MURLPROHIBITION(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     url_id = db.Column(db.Integer,db.ForeignKey('URL.id'))
-    prohibition_id = db.Column(db.Integer,db.ForeignKey('PROHIBITION_TYPE.id'))
-    date_created = db.db.Column(db.DateTime, default=datetime.utcnow)
+    prohibition_id = db.Column(db.Integer,db.ForeignKey('PROHIBITIONTYPE.id'))
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self,url_id, prohibition_id, date_created):
         self.url_id = url_id
@@ -126,12 +127,12 @@ class MURLPROHIBITION(db.Model):
 
 
 class MREASONSPROHIBITION(db.Model):
-    __tablename__ = 'URLPROHIBITION'
+    __tablename__ = 'REASONSPROHIBITION'
 
     id = db.Column(db.Integer, primary_key=True)
     url_processment_id = db.Column(db.Integer, db.ForeignKey('URLPROCESSMENT.id'))
     restriction_id = db.Column(db.Integer,db.ForeignKey('RESTRICTION.id'))
-    date_created = db.db.Column(db.DateTime, default=datetime.utcnow)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
     url_id = db.Column(db.Integer, db.ForeignKey('URL.id'))
 
     def __init__(self,url_processment_id, restriction_id, date_created, url_id):

@@ -1,9 +1,7 @@
 from utils import get_html
 import datetime
-from flaskr.restrictions import RegexRestriction, ImageRestriction, MLRestriction
-from flaskr.reasonsprohibition import ReasonsProhibition
-from flaskr.urlprohibition import URLProhibition
-from flaskr.statusType import statusType
+from flaskr import RegexRestriction, ImageRestriction
+from flaskr import statusType
 
 class URLProcessment():
 

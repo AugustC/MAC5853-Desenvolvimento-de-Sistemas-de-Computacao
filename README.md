@@ -4,6 +4,12 @@
 
 ## Requirements
 * Flask
+* MySQL
+
+mysql -u root
+* CREATE USER 'db_admin'@'localhost' IDENTIFIED BY 'dbadmin'
+* CREATE DATABASE dsvdb;
+* GRANT ALL PRIVILEGES ON dsvdb . * TO 'db_admin'@'localhost';
 
 ## Usage
 
@@ -19,3 +25,4 @@ flask run
 
 Then, send a POST HTTP request to http://127.0.0.1:5000/ with JSON data containing the
 sites to be processed and the callback URL.
+
