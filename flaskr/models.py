@@ -13,6 +13,14 @@ class MURL(db.Model):
     def __repr__(self):
         return f"URL is {self.urlpath}"
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class MPROHIBITIONTYPE(db.Model):
     __tablename__ = 'PROHIBITIONTYPE'
 
@@ -24,6 +32,14 @@ class MPROHIBITIONTYPE(db.Model):
 
     def __repr__(self):
         return f"Prohibition Type is {self.description}"
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class MSTATUSTYPE(db.Model):
     __tablename__ = 'STATUSTYPE'
@@ -37,6 +53,14 @@ class MSTATUSTYPE(db.Model):
     def __repr__(self):
         return f"Status Type is {self.description}"
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class MRESTRICTION(db.Model):
     __tablename__ = 'RESTRICTION'
 
@@ -48,6 +72,14 @@ class MRESTRICTION(db.Model):
 
     def __repr__(self):
         return f"Restriction is {self.description}"
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class MREGEXRESTRICTION(db.Model):
     __tablename__ = 'REGEXRESTRICTION'
@@ -63,6 +95,14 @@ class MREGEXRESTRICTION(db.Model):
     def __repr__(self):
         return f"Regex Restriction is {self.regex_rule}"
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class MMACHINELEARNINGR(db.Model):
     __tablename__ = 'MACHINELEARNINGR'
 
@@ -77,6 +117,14 @@ class MMACHINELEARNINGR(db.Model):
     def __repr__(self):
         return f"Machine Learning Restriction is {self.model_path}"
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class MIMAGERESTRICTION(db.Model):
     __tablename__ = 'IMAGERESTRICTION'
 
@@ -90,6 +138,14 @@ class MIMAGERESTRICTION(db.Model):
 
     def __repr__(self):
         return f"Image Restriction is {self.image_rule}"
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class MURLPROCESSMENT(db.Model):
     __tablename__ = 'URLPROCESSMENT'
@@ -106,6 +162,14 @@ class MURLPROCESSMENT(db.Model):
 
     def __repr__(self):
         return f"Url processment created on {self.date_created}"
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 
@@ -125,6 +189,14 @@ class MURLPROHIBITION(db.Model):
     def __repr__(self):
         return f"Url Prohibition created on {self.date_created}"
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class MREASONSPROHIBITION(db.Model):
     __tablename__ = 'REASONSPROHIBITION'
@@ -143,3 +215,11 @@ class MREASONSPROHIBITION(db.Model):
 
     def __repr__(self):
         return f"Reasons Prohibition created on {self.date_created}"
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
