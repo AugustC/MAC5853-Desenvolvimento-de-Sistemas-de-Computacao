@@ -1,7 +1,7 @@
 from flask import request, jsonify, abort
 from flask_restful import Api, Resource
 from . import api
-from .models import MURL, MPROHIBITIONTYPE, MSTATUSTYPE
+from .models import MURL, MPROHIBITIONTYPE, MSTATUSTYPE, MRESTRICTION, MREGEXRESTRICTION
 
 class URLResource(Resource):
 
@@ -103,6 +103,40 @@ class StatusTypeResource(Resource):
         response.status_code = 200
         return response
 
+class RestrictionResource(Resource):
+    def get(self):
+        id = str(request.json.get('id'))
+        restriction = MRESTRICTION.query.filter_by(id=id).first()
+        if restriction:
+            response = jsonify(restriction.serialize())
+            response.status_code = 202
+            return response
+        else:
+            return {'id':'not found'}, 404
+
+    def post(self):
+        description = str(request.json.get('description'))
+        if description:
+            restriction = MRESTRICTION(description=description)
+            restriction.save()
+            response = jsonify({
+                'id': restriction.id,
+                'description': restriction.description
+            })
+            response.status_code = 201
+            return response
+
+    def delete(self):
+        id = str(request.json.get('id'))
+        restriction = MRESTRICTION.query.filter_by(id=id).first()
+        MRESTRICTION.delete(restriction)
+        response = jsonify({
+            'note': 'Delete successful'
+        })
+        response.status_code = 200
+        return response
+
 api.add_resource(URLResource, '/url')
 api.add_resource(ProhibitionTypeResource, '/prohibition_type')
 api.add_resource(StatusTypeResource, '/status_type')
+api.add_resource(RestrictionResource, '/restriction')

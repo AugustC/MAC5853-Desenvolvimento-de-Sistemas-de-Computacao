@@ -118,6 +118,12 @@ class MRESTRICTION(db.Model):
     def __repr__(self):
         return f"Restriction is {self.description}"
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'description': self.description,
+        }
+
     def save(self):
         db.session.add(self)
         db.session.commit()
