@@ -1,7 +1,6 @@
-from . import db
+from . import db, create_app
 from datetime import datetime
 from .restrictions import RegexRestriction, ImageRestriction, MLRestriction
-import threading
 from .utils import get_html
 
 class MURL(db.Model):
@@ -226,8 +225,6 @@ class MURLPROCESSMENT(db.Model):
         self.url_id = url_id
         self.status_id = status_id
         self.date_created = date_created
-        self.thread = threading.Thread(target=self.processRestriction)
-        self.thread.start()
 
     def __repr__(self):
         return f"Url processment created on {self.date_created}"
@@ -240,6 +237,9 @@ class MURLPROCESSMENT(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def startProcessing(self):
+        self.processRestriction()
+
     def processRestriction(self):
         status = MSTATUSTYPE.query.get(self.status_id)
         status.setProcessing()
@@ -247,24 +247,25 @@ class MURLPROCESSMENT(db.Model):
         print('Processing', url)
         html = get_html(url.urlpath)
         regex_restriction = RegexRestriction(html)
-        image_restriction = ImageRestriction(html)
-        ml_restriction = MLRestricion(html)
+        #image_restriction = ImageRestriction(html)
+        #ml_restriction = MLRestricion(html)
         self.setProhibition(regex_restriction)
-        self.setProhibition(image_restriction)
-        self.setProhibition(ml_restriction)
+        #self.setProhibition(image_restriction)
+        #self.setProhibition(ml_restriction)
         status.setEnded()
 
     def setProhibition(self, restriction):
         if not restriction.prohibited:
+            print("Not prohibited")
             pass
         else:
         # Create ReasonsProhibition, create URLProhibition
+            print("Prohibited")
             pass
 
     @staticmethod
     def get_all():
         return MURLPROCESSMENT.query.all()
-
 
 class MURLPROHIBITION(db.Model):
     __tablename__ = 'URLPROHIBITION'
