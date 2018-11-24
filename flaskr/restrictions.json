@@ -1,0 +1,14 @@
+{
+    "regular_expressions": [
+        "Rifle(s?)",
+        "Pistola(s?)",
+        "Revolver(es?)",
+        "Espingarda(s?)",
+        "Colt \\w+",
+        "M\\d\\d",
+        "Ak47",
+        "Steyr AUG",
+        "Rossi \\d\\d\\d",
+        "Taurus (\\w?)(\\w?)\\d\\d(\\d?)"
+    ]
+}
