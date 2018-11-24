@@ -1,3 +1,6 @@
+import re
+import json
+
 class Restriction():
 
     def __init__(self, html):
@@ -16,7 +19,20 @@ class RegexRestriction(Restriction):
         self.description = 'Regex restriction'
 
     def try_restriction(self, html):
-        raise NotImplementedError
+        count = 0
+        with open('flaskr/restrictions.json', 'r') as f:
+            restrictions = json.loads(f.read())
+        regex = restrictions['regular_expressions']
+        patterns_found = []
+        for pattern in regex:
+            matches = re.findall(pattern, html, flags=re.IGNORECASE)
+            count += len(matches)
+            patterns_found.append(pattern)
+        if count > 10:
+            self.prohibited = True
+        else:
+            self.prohibited = False
+        return patterns_found
 
 class ImageRestriction(Restriction):
 
