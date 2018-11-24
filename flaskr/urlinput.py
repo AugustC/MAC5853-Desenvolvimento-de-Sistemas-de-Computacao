@@ -30,6 +30,7 @@ def get_input():
                 status.save()
                 processment = models.MURLPROCESSMENT(url.id, status.id)
                 processment.save()
+                processment.startProcessing()
 
         if error is None:
             return render_template('processing.html')
