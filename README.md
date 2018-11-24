@@ -11,7 +11,7 @@
 
 ## Database Setup
 Logon to mysql -u root and use the next commands:
-* CREATE USER 'db_admin'@'localhost' IDENTIFIED BY 'dbadmin'
+* CREATE USER 'db_admin'@'localhost' IDENTIFIED BY 'dbadmin';
 * CREATE DATABASE dsvdb;
 * GRANT ALL PRIVILEGES ON dsvdb . * TO 'db_admin'@'localhost';
 
@@ -27,7 +27,6 @@ cd MAC5853-Desenvolvimento-de-Sistemas-de-Computacao
 First, start the Flask server
 
 ```bash
-cd MAC5853-Desenvolvimento-de-Sistemas-de-Computacao
 export FLASK_APP=flaskr
 flask run
 * Serving Flask app "flaskr"
