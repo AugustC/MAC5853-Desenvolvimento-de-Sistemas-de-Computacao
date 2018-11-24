@@ -2,6 +2,8 @@ from flask import (
     Blueprint, flash, g, render_template, request
 )
 from . import models
+import urllib.request
+import json
 
 bp = Blueprint('input', __name__, url_prefix='/')
 
@@ -31,6 +33,19 @@ def get_input():
                 processment = models.MURLPROCESSMENT(url.id, status.id)
                 processment.save()
                 processment.startProcessing()
+            prohibited = models.MREASONSPROHIBITION.get_all()
+            prohibited_urls = [models.MURL.query.get(s.url_id).urlpath for s in prohibited]
+            URLS = models.MURL.get_all()
+            prohibited_sites = [{"url": models.MURL.query.get(s.url_id).urlpath,
+                "restricted": True,
+                "reasons": models.MREASONSPROHIBITION.query.get(s.id).reasons} for s in prohibited]
+            allowed_sites = [{"url": url.urlpath,
+                "restricted": False,
+                "reasons": []} for url in URLS if url.urlpath not in prohibited_urls]
+            sites = prohibited_sites + allowed_sites
+            sites = json.dumps(sites)
+            sites = str(sites)
+            req = urllib.request.Request(g.callback, data=sites)
 
         if error is None:
             return render_template('processing.html')
