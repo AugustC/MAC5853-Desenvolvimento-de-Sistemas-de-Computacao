@@ -257,11 +257,17 @@ class MURLPROCESSMENT(db.Model):
     def setProhibition(self, restriction):
         if not restriction.prohibited:
             print("Not prohibited")
-            pass
         else:
         # Create ReasonsProhibition, create URLProhibition
             print("Prohibited")
-            pass
+            prohibition = MPROHIBITIONTYPE(restriction.description)
+            restric = MRESTRICTION(restriction.description)
+            url_prohibition = MURLPROHIBITION(self.url_id, prohibition.id)
+            reasons_prohibition = MREASONSPROHIBITION(self.id, restric.id, self.url_id, restriction.restrictions)
+            prohibition.save()
+            restric.save()
+            url_prohibition.save()
+            reasons_prohibition.save()
 
     @staticmethod
     def get_all():
@@ -275,7 +281,7 @@ class MURLPROHIBITION(db.Model):
     prohibition_id = db.Column(db.Integer,db.ForeignKey('PROHIBITIONTYPE.id'))
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self,url_id, prohibition_id, date_created):
+    def __init__(self,url_id, prohibition_id, date_created=datetime.utcnow()):
         self.url_id = url_id
         self.prohibition_id = prohibition_id
         self.date_created = date_created
@@ -303,12 +309,14 @@ class MREASONSPROHIBITION(db.Model):
     restriction_id = db.Column(db.Integer,db.ForeignKey('RESTRICTION.id'))
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     url_id = db.Column(db.Integer, db.ForeignKey('URL.id'))
+    reasons = []
 
-    def __init__(self,url_processment_id, restriction_id, date_created, url_id):
+    def __init__(self,url_processment_id, restriction_id, url_id, reasons, date_created=datetime.utcnow()):
         self.url_processment_id = url_processment_id
         self.restriction_id = restriction_id
         self.date_created = date_created
-        self.url_id =url_id
+        self.url_id = url_id
+        self.reasons = reasons
 
     def __repr__(self):
         return f"Reasons Prohibition created on {self.date_created}"
