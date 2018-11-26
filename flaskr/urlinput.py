@@ -52,7 +52,7 @@ def get_input():
         flash(error)
 
     urls = models.MURLPROCESSMENT.get_all()
-    if urls is not None:
+    if urls:
         g.sites = [models.MURL.query.get(s.url_id).urlpath for s in urls]
         g.status = {models.MURL.query.get(s.url_id).urlpath : models.MSTATUSTYPE.query.get(s.status_id).description for s in urls}
         g.callback = "" #get from DB

@@ -16,7 +16,11 @@ class URLResource(Resource):
             return {'urlpath':'not found'}, 404
 
     def post(self):
-        urlpath = str(request.json.get('urlpath'))
+        if (request.json is None):
+            request_json = jsonify(request.form)
+        else:
+            request_json = request.json
+        urlpath = str(request_json.json.get('urlpath'))
         if urlpath:
             url = MURL(urlpath=urlpath)
             url.save()
