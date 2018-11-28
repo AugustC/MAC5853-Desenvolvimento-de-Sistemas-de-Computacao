@@ -263,11 +263,12 @@ class MURLPROCESSMENT(db.Model):
             prohibition = MPROHIBITIONTYPE(restriction.description)
             restric = MRESTRICTION(restriction.description)
             url_prohibition = MURLPROHIBITION(self.url_id, prohibition.id)
-            reasons_prohibition = MREASONSPROHIBITION(self.id, restric.id, self.url_id, restriction.restrictions)
+            for reason in restriction.restrictions:
+                reasons_prohibition = MREASONSPROHIBITION(self.id, restric.id, self.url_id, reason)
+                reasons_prohibition.save()
             prohibition.save()
             restric.save()
             url_prohibition.save()
-            reasons_prohibition.save()
 
     @staticmethod
     def get_all():
@@ -309,14 +310,14 @@ class MREASONSPROHIBITION(db.Model):
     restriction_id = db.Column(db.Integer,db.ForeignKey('RESTRICTION.id'))
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     url_id = db.Column(db.Integer, db.ForeignKey('URL.id'))
-    reasons = []
+    reason = db.Column(db.String(100))
 
-    def __init__(self,url_processment_id, restriction_id, url_id, reasons, date_created=datetime.utcnow()):
+    def __init__(self,url_processment_id, restriction_id, url_id, reason, date_created=datetime.utcnow()):
         self.url_processment_id = url_processment_id
         self.restriction_id = restriction_id
         self.date_created = date_created
         self.url_id = url_id
-        self.reasons = reasons
+        self.reason = reason
 
     def __repr__(self):
         return f"Reasons Prohibition created on {self.date_created}"
