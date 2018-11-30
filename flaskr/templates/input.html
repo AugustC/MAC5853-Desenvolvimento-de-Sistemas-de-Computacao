@@ -1,15 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <div class="jumbotron text-center">
-         <h1>{% block title %} Input {% endblock %}</h1>
-    </div>
+
+    <h1>{% block title %} Input {% endblock %}</h1>
+
 {% endblock %}
 
 {% block content %}
-    <form method="POST" action="/url" id="urlForm" enctype="application/json">
-        <label>URL to process</label>
-        <input class="form-control" name="urlpath" id="urlpath" required>
-        <input type="submit" value="Submit" class="btn btn-primary">
-    </form>
+    Please, send a POST request to this URL with JSON data, containing the urls to be processed and the callback
 {% endblock %}

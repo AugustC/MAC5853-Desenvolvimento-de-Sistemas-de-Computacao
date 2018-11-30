@@ -102,6 +102,10 @@ class MSTATUSTYPE(db.Model):
         self.save()
 
     @staticmethod
+    def getById(id):
+        return MSTATUSTYPE.query.filter_by(id=id).one()
+
+    @staticmethod
     def get_all():
         return MSTATUSTYPE.query.all()
 
@@ -269,6 +273,10 @@ class MURLPROCESSMENT(db.Model):
             prohibition.save()
             restric.save()
             url_prohibition.save()
+
+    @staticmethod
+    def getByUrlId(url_id):
+        return MURLPROCESSMENT.query.filter_by(url_id=url_id).first()
 
     @staticmethod
     def get_all():

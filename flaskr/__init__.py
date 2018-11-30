@@ -27,9 +27,11 @@ def create_app(test_config=None):
         pass
     db.init_app(app)
     from . import resources
+    from . import dashboard
     api.init_app(app)
     from . import urlinput
     app.register_blueprint(urlinput.bp)
+    app.register_blueprint(dashboard.bp)
     migrate = Migrate(app, db)
     from . import models
     return app

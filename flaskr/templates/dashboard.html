@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <div class="jumbotron text-center">
+         <h1>{% block title %} Dashboard {% endblock %}</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container ">
+        <div class="btn-group col-md-12 align-items-center">
+            <div class="col-md-1">
+                <form method="POST" action="/dashboard/buttonURL" id="urlForm" enctype="application/json">
+                    <input type="submit" value="URL's" class="btn btn-primary">
+                </form>
+            </div>
+            <div class="col-md-1">
+                <form method="POST" action="/dashboard/buttonRestricoes" id="urlForm" enctype="application/json">
+                    <input type="submit" value="Restricoes" class="btn btn-primary">
+                </form>
+            </div>
+            <div class="col-md-1">
+                <form method="POST" action="/dashboard/buttonOutput" id="urlForm" enctype="application/json">
+                    <input type="submit" value="Output" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if  buttonPressed|int()  == 0 %}
+        <div class="container bg-success">
+            <div class ="col-md-6">
+                <hi>URL's</hi>
+                <ul>
+                    {% for url in urls %}
+                        <li>{{url.urlpath}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class ="col-md-6">
+                <hi>Status</hi>
+                <ul>
+                    {% for url in urls %}
+                        <li>{{url.status_type}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+    <div class="col-md-12">
+        <h1>Callback: </h1>
+    </div>
+{% endblock %}
