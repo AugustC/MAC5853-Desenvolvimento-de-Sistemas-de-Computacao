@@ -41,8 +41,11 @@ def show_dashboard(option):
             restriction = True
         urlsDashboard.append(URLDashboard(url.urlpath, status_type.description, restriction, reasons))
 
+    regexp = [x.regex_rule for x in models.MREGEXRESTRICTION.get_all()]
+    images = [x.image_rule for x in models.MIMAGERESTRICTION.get_all()]
+    mlrules = [x.model_path for x in models.MMACHINELEARNINGR.get_all()]
 
-    return render_template("dashboard.html", urls=urlsDashboard, buttonPressed=buttonPressed, prohibited_urls=prohibited_urls)
+    return render_template("dashboard.html", urls=urlsDashboard, buttonPressed=buttonPressed, regexp=regexp, images=images, mlrules=mlrules)
 
 @bp.route('/buttonURL', methods=('GET', 'POST'))
 def pressUrl():

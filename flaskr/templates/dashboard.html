@@ -51,24 +51,24 @@
             <div class ="col-md-4">
                 <hi>Expressoes Regulares</hi>
                 <ul>
-                    {% for url in urls %}
-                        <li>{{url.urlpath}}</li>
+                    {% for re in regexp %}
+                        <li>{{re.regex_rule}}</li>
                     {% endfor %}
                 </ul>
             </div>
             <div class ="col-md-4">
                 <hi>Imagens</hi>
                 <ul>
-                    {% for url in urls %}
-                        <li>{{url.status_type}}</li>
+                    {% for image in images %}
+                        <li>{{image.image_rule}}</li>
                     {% endfor %}
                 </ul>
             </div>
             <div class ="col-md-4">
                 <hi>Aprendizado de Maquina</hi>
                 <ul>
-                    {% for url in urls %}
-                        <li>{{url.status_type}}</li>
+                    {% for mlrule in mlrules %}
+                        <li>{{mlrule.model_path}}</li>
                     {% endfor %}
                 </ul>
             </div>
