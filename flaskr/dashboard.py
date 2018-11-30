@@ -5,14 +5,28 @@ from . import models
 bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
 class URLDashboard:
-    def __init__(self, urlpath, status_type):
+    def __init__(self, urlpath, status_type, restriction, reasons):
         self.urlpath = urlpath
         self.status_type = status_type
+        self.restriction = restriction
+        self.reasons = reasons
 
+def listToString(list):
+    str = ""
+    first = True
+    for object in list:
+        if first:
+            str += ", "
+        str += object
+    return str
 @bp.route('/<option>', methods=('GET', 'POST'))
 def show_dashboard(option):
     urls = models.MURL.get_all()
     urlsDashboard = []
+    buttonPressed = option
+    prohibited = models.MURLPROHIBITION.get_all()
+    prohibited_urls = [models.MURL.query.get(s.url_id).urlpath for s in prohibited]
+
     for url in urls:
         url_id = url.id
         url_processment = models.MURLPROCESSMENT.getByUrlId(url_id)
@@ -20,11 +34,15 @@ def show_dashboard(option):
             continue
         status_id = url_processment.status_id
         status_type = models.MSTATUSTYPE.getById(status_id)
-        urlsDashboard.append(URLDashboard(url.urlpath, status_type.description))
-        if (option is None):
-            option = 0
-    buttonPressed = option
-    return render_template("dashboard.html", urls=urlsDashboard, buttonPressed=buttonPressed)
+        restriction = False
+        reasonList = [x.reason for x in models.MREASONSPROHIBITION.query.filter_by(url_id=url_id).all()]
+        reasons = listToString(reasonList)
+        if (url.urlpath in prohibited_urls):
+            restriction = True
+        urlsDashboard.append(URLDashboard(url.urlpath, status_type.description, restriction, reasons))
+
+
+    return render_template("dashboard.html", urls=urlsDashboard, buttonPressed=buttonPressed, prohibited_urls=prohibited_urls)
 
 @bp.route('/buttonURL', methods=('GET', 'POST'))
 def pressUrl():

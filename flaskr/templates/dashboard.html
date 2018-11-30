@@ -46,6 +46,66 @@
             </div>
         </div>
     {% endif %}
+    {% if  buttonPressed|int()  == 1%}
+        <div class="container bg-success">
+            <div class ="col-md-4">
+                <hi>Expressoes Regulares</hi>
+                <ul>
+                    {% for url in urls %}
+                        <li>{{url.urlpath}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class ="col-md-4">
+                <hi>Imagens</hi>
+                <ul>
+                    {% for url in urls %}
+                        <li>{{url.status_type}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class ="col-md-4">
+                <hi>Aprendizado de Maquina</hi>
+                <ul>
+                    {% for url in urls %}
+                        <li>{{url.status_type}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+    {% if  buttonPressed|int()  == 2 %}
+        <div class="container bg-success">
+            <div class ="col-md-4">
+                <hi>URL's</hi>
+                <ul>
+                    {% for url in urls %}
+                        <li>{{url.urlpath}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class ="col-md-4">
+                <hi>Restricao</hi>
+                <ul class="list-group">
+                    {% for url in urls %}
+                        {% if url.restriction %}
+                            <li list-group-item-success>True</li>
+                        {% else %}
+                            <li list-group-item-danger>False</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class ="col-md-4">
+                <hi>Racoes</hi>
+                <ul>
+                    {% for url in urls %}
+                        <li>{{url.reasons}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
     <div class="col-md-12">
         <h1>Callback: </h1>
     </div>
