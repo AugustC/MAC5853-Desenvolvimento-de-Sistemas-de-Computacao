@@ -1,14 +1,24 @@
 {
     "regular_expressions": [
-        "Rifle(s?)",
-        "Pistola(s?)",
-        "Revolver(es?)",
-        "Espingarda(s?)",
-        "Colt \\w+",
-        "M\\d\\d",
-        "Ak47",
-        "Steyr AUG",
-        "Rossi \\d\\d\\d",
-        "Taurus (\\w?)(\\w?)\\d\\d(\\d?)"
+        "rifle(s?)",
+        "pistola(s?)",
+        "revolver(es?)",
+        "espingarda(s?)",
+        "arma",
+        "kwc",
+        "carabina",
+        "revolver",
+        "canivete",
+        "rifle",
+        "revolver",
+        "calibre [0-9]",
+        "gun",
+        "colt \\w+",
+        "m\\d\\d",
+        "ak47",
+        "steyr aug",
+        "rossi \\d\\d\\d",
+        "taurus (\\w?)(\\w?)\\d\\d(\\d?)",
+        "acompanhante(s?)"
     ]
 }

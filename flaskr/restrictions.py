@@ -25,7 +25,7 @@ class RegexRestriction(Restriction):
         regex = restrictions['regular_expressions']
         patterns_found = []
         for pattern in regex:
-            matches = re.findall(pattern, html, flags=re.IGNORECASE)
+            matches = re.findall(pattern, html.lower(), flags=re.IGNORECASE)
             count += len(matches)
             patterns_found.append(pattern)
         if count > 10:
