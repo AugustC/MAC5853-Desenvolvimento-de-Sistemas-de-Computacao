@@ -40,7 +40,15 @@
                 <hi>Status</hi>
                 <ul>
                     {% for url in urls %}
-                        <li>{{url.status_type}}</li>
+                        {% if url.status_type == "Not processed" %}
+                            <div class="w3-text-red">
+                        {% elif url.status_type == "Processing" %}
+                            <div class="w3-text-blue">
+                        {% else %}
+                            <div class="w3-text-green">
+                        {% endif %}
+                                <li>{{url.status_type}}</li>
+                            </div>
                     {% endfor %}
                 </ul>
             </div>
@@ -85,19 +93,22 @@
                 </ul>
             </div>
             <div class ="col-md-4">
-                <hi>Restricao</hi>
+                <hi>Restrição</hi>
                 <ul class="list-group">
                     {% for url in urls %}
                         {% if url.restriction %}
+                        <div class="w3-text-green">
                             <li list-group-item-success>True</li>
                         {% else %}
+                        <div class="w3-text-red">
                             <li list-group-item-danger>False</li>
                         {% endif %}
+                    </div>
                     {% endfor %}
                 </ul>
             </div>
             <div class ="col-md-4">
-                <hi>Racoes</hi>
+                <hi>Razões</hi>
                 <ul>
                     {% for url in urls %}
                         <li>{{url.reasons}}</li>
