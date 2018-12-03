@@ -248,7 +248,6 @@ class MURLPROCESSMENT(db.Model):
         status = MSTATUSTYPE.query.get(self.status_id)
         status.setProcessing()
         url = MURL.query.get(self.url_id)
-        print('Processing', url)
         html = get_html(url.urlpath)
         regex_restriction = RegexRestriction(html)
         #image_restriction = ImageRestriction(html)
@@ -260,10 +259,9 @@ class MURLPROCESSMENT(db.Model):
 
     def setProhibition(self, restriction):
         if not restriction.prohibited:
-            print("Not prohibited")
+            pass
         else:
         # Create ReasonsProhibition, create URLProhibition
-            print("Prohibited")
             prohibition = MPROHIBITIONTYPE(restriction.description)
             restric = MRESTRICTION(restriction.description)
             url_prohibition = MURLPROHIBITION(self.url_id, prohibition.id)
