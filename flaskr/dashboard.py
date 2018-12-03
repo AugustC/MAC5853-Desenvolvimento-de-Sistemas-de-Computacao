@@ -41,7 +41,7 @@ def show_dashboard(option):
             restriction = True
         urlsDashboard.append(URLDashboard(url.urlpath, status_type.description, restriction, reasons))
 
-    regexp = [x.regex_rule for x in models.MREGEXRESTRICTION.get_all()]
+    regexp = [x for x in models.MREGEXRESTRICTION.get_all()]
     images = [x.image_rule for x in models.MIMAGERESTRICTION.get_all()]
     mlrules = [x.model_path for x in models.MMACHINELEARNINGR.get_all()]
 
