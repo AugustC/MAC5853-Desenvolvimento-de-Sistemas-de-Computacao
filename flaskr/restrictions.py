@@ -27,7 +27,8 @@ class RegexRestriction(Restriction):
         for pattern in regex:
             matches = re.findall(pattern, html.lower(), flags=re.IGNORECASE)
             count += len(matches)
-            patterns_found.append(pattern)
+            if len(matches) > 0:
+                patterns_found.append(pattern)
         if count > 10:
             self.prohibited = True
         else:
