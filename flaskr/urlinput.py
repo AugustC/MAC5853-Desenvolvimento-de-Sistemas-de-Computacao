@@ -7,6 +7,17 @@ import json
 
 bp = Blueprint('input', __name__, url_prefix='/')
 
+def load_regex():
+    with open('flaskr/restrictions.json', 'r') as f:
+        restrictions = json.loads(f.read())
+    regex_rules = restrictions['regular_expressions']
+    for pattern in regex_rules:
+        restriction = models.MRESTRICTION('Regular Expression')
+        restriction.save()
+        rule = models.MREGEXRESTRICTION(restriction.id, pattern)
+        rule.save()
+
+
 @bp.route('/', methods=('GET', 'POST'))
 def get_input():
     if request.method == 'POST':
@@ -19,6 +30,7 @@ def get_input():
             g.sites = input_data['sites']
             g.callback = input_data['callback']
             g.status = {}
+            load_regex()
             for site in g.sites:
                 g.status[site] = 'Not processed'
                 url = models.MURL(site)
